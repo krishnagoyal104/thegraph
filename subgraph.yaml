@@ -1,0 +1,53 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Contract
+    network: rinkeby
+    source:
+      address: "0x55C0b8E264EB72D54A99c15820c7C024E4F53657"
+      abi: Contract
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.2
+      language: wasm/assemblyscript
+      entities:
+        - LogNewRequest
+        - LogNewOffer
+        - LogCancelRequest
+        - LogCancelOffer
+        - LogAcceptRequest
+        - LogAcceptOffer
+        - LogInstallmentPaid
+        - LogCollateralReturned
+        - LogCollateralClaimed
+        - LogOraclizeQuery
+        - LogResultReceived
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: LogNewRequest(uint256,uint256,uint256,uint256,uint256,address)
+          handler: handleLogNewRequest
+        - event: LogNewOffer(uint256,uint256,uint256,uint256,uint256,address)
+          handler: handleLogNewOffer
+        - event: LogCancelRequest(uint256)
+          handler: handleLogCancelRequest
+        - event: LogCancelOffer(uint256)
+          handler: handleLogCancelOffer
+        - event: LogAcceptRequest(uint256,address)
+          handler: handleLogAcceptRequest
+        - event: LogAcceptOffer(uint256,address)
+          handler: handleLogAcceptOffer
+        - event: LogInstallmentPaid(uint256,uint256)
+          handler: handleLogInstallmentPaid
+        - event: LogCollateralReturned(uint256)
+          handler: handleLogCollateralReturned
+        - event: LogCollateralClaimed(uint256)
+          handler: handleLogCollateralClaimed
+        - event: LogOraclizeQuery(string)
+          handler: handleLogOraclizeQuery
+        - event: LogResultReceived(string)
+          handler: handleLogResultReceived
+      file: ./src/mapping.ts
