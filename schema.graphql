@@ -1,6 +1,21 @@
-type ExampleEntity @entity {
+type Loan @entity {
   id: ID!
-  count: BigInt!
-  _id: BigInt! # uint256
-  _loanAmount: BigInt! # uint256
+  index: BigInt!
+  state: State!
+  loanAmount: BigInt!
+  collateralAmount: BigInt!
+  installments: BigInt!
+  installmentsPaid: BigInt!
+  interest: BigInt!
+  time: BigInt!
+  borrower: Bytes
+  lender: Bytes
+}
+
+enum State {
+	Pending
+	Accepted
+	Completed
+	Defaulted
+	Settled
 }
